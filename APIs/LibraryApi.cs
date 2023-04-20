@@ -7,7 +7,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rest_API_Library
+namespace Rest_API_Library.APIs
 {
     public class LibraryApi
     {
@@ -16,8 +16,8 @@ namespace Rest_API_Library
         private RestClientOptions options;
 
         private RestClient client;
-            
-        
+
+
 
         public LibraryApi(string host)
         {
@@ -25,7 +25,7 @@ namespace Rest_API_Library
 
             options = new RestClientOptions(host);
 
-            client = new RestClient(options);   
+            client = new RestClient(options);
         }
 
         public async Task<RestResponse> GetAllBooksAsync()
@@ -35,7 +35,7 @@ namespace Rest_API_Library
             return await client.GetAsync(request);
         }
 
-        public async Task<RestResponse> GetBookByIdAsync(int id) 
+        public async Task<RestResponse> GetBookByIdAsync(int id)
         {
             var request = new RestRequest("/api/books/" + id, Method.Get);
             return await client.GetAsync(request);
@@ -58,7 +58,7 @@ namespace Rest_API_Library
             return await client.ExecutePostAsync(request);
         }
 
-        public async Task<RestResponse> UpdateBookByIdWithJsonBody(Book bk, int id) 
+        public async Task<RestResponse> UpdateBookByIdWithJsonBody(Book bk, int id)
         {
             var request = new RestRequest("/api/books/" + id, Method.Put);
 
@@ -68,7 +68,7 @@ namespace Rest_API_Library
 
             return await client.ExecutePutAsync(request);
         }
-        public async Task<RestResponse> DeleteBookById(int id) 
+        public async Task<RestResponse> DeleteBookById(int id)
         {
             var request = new RestRequest("/api/books/" + id, Method.Delete);
 

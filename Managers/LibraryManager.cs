@@ -2,11 +2,13 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
+using Rest_API_Library.APIs;
 using Rest_API_Library.Response_Schemas;
 using System.Net;
 using System.Xml.Linq;
 
-namespace Rest_API_Library
+
+namespace Rest_API_Library.Managers
 {
     public class LibraryManager
     {
@@ -39,7 +41,7 @@ namespace Rest_API_Library
             var response = await libraryApi.CreateBook(bk);
 
             Assert.IsTrue(response.IsSuccessful, $"Status code isnot ok!  Actual status code: {response.StatusCode}");
-            
+
             Assert.IsTrue(JObject.Parse(response.Content).IsValid(CreateBookResponseSchema.Schema), "Response data is no valid to schema");
         }
         public async Task TryToCreateBookWithoutReqierdedParamsAsync(Book bk)
@@ -52,7 +54,7 @@ namespace Rest_API_Library
         {
             var response = await libraryApi.CreateBookWithoutBody();
 
-            Assert.AreEqual(HttpStatusCode.BadRequest ,response.StatusCode, $"Status code is not 400!  Actual status code: {response.StatusCode}");
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode, $"Status code is not 400!  Actual status code: {response.StatusCode}");
         }
 
         public async Task UpDateBookByIdAndValidateToSchemaAsync(Book bk, int id)

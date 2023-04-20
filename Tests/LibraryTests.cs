@@ -1,4 +1,6 @@
-namespace Rest_API_Library
+using Rest_API_Library.Managers;
+
+namespace Rest_API_Library.Tests
 {
     public class Tests
     {
@@ -48,8 +50,8 @@ namespace Rest_API_Library
         {
             LibraryManager libraryManager = new LibraryManager("http://localhost:5000");
 
-            var book = new Book 
-            { 
+            var book = new Book
+            {
                 Name = "Книга с обязательным параметром name ",
                 Author = "Необязательный параметр Author",
                 Year = 2000,
@@ -85,7 +87,7 @@ namespace Rest_API_Library
         public async Task DeleteBook()
         {
             LibraryManager libraryManager = new LibraryManager("http://localhost:5000");
-            var id =  await libraryManager.GetRandomBookIdOrCreateOneAsync();
+            var id = await libraryManager.GetRandomBookIdOrCreateOneAsync();
             await libraryManager.DeleteBookByIdAndValidateToSchemaAsync(id);
             await libraryManager.ValidateThatBookWasDeletedFromBooksListAsync(id);
             await libraryManager.ValidateThatBookWasDeletedAsync(id);
